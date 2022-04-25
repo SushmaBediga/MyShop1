@@ -9,13 +9,13 @@ using MyShop.Core.Models;
 
 namespace MyShop.DataAccess.InMemory
 {
-    class ProductRepositry
+   public class ProductRepositry
     {
         ObjectCache cache=  MemoryCache.Default;
         List<Product> Products;
         public ProductRepositry()
         {
-            Products = cache["Products"] as List<Product>;
+            Products = cache["products"] as List<Product>;
             if(Products ==null)
             {
                 Products = new List<Product>();
