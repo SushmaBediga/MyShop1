@@ -1,4 +1,5 @@
-﻿using MyShop.Core.Models;
+﻿using MyShop.Core.Contracts;
+using MyShop.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace MyShop.DataAccess.InMemory
     //So we will have common repository where we can modify at single place
 
     //we can also delete productRepository and InMemoryRepository now
-    public class InMemoryRepository<T> where T : BaseEntity
+    public class InMemoryRepository<T> : IRepository<T> where T : BaseEntity
 
     {
         ObjectCache cache = MemoryCache.Default;
@@ -26,16 +27,16 @@ namespace MyShop.DataAccess.InMemory
         {
             className = typeof(T).Name; // if the name is comming from product it will be product, if it is product category it will be ProductCategory
             items = cache[className] as List<T>;
-            if(items==null)
+            if (items == null)
             {
                 items = new List<T>();
             }
         }
-        public void Commit ()
+        public void Commit()
         {
             cache[className] = items;
         }
-        
+
         public void Insert(T t)
         {
             items.Add(t);
@@ -44,7 +45,7 @@ namespace MyShop.DataAccess.InMemory
         {
             T tToUpdate = items.Find(i => i.Id == t.Id);
 
-            if(tToUpdate!=null)
+            if (tToUpdate != null)
             {
                 tToUpdate = t;
             }
@@ -56,10 +57,10 @@ namespace MyShop.DataAccess.InMemory
         public T Find(string Id)
         {
             T t = items.Find(i => i.Id == Id);
-                if (t!=null)
-                {
+            if (t != null)
+            {
                 return t;
-                }
+            }
             else
             {
                 throw new Exception(className + "not found");
