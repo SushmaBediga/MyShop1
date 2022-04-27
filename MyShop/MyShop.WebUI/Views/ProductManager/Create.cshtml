@@ -1,4 +1,34 @@
-﻿@model MyShop.Core.ViewModels.ProductManagerViewModel
+﻿@*Skip to content
+Search or jump to…
+Pull requests
+Issues
+Marketplace
+Explore
+
+@SushmaBediga
+completecoder
+/
+MyShop
+Public
+Code
+Issues
+2
+Pull requests
+6
+Actions
+Projects
+Wiki
+Security
+Insights
+MyShop/MyShop/MyShop.WebUI/Views/ProductManager/Create.cshtml
+@squareconnection
+squareconnection Added Product Upload
+Latest commit 1be0b5a on Nov 7, 2017
+ History
+ 1 contributor
+70 lines (58 sloc)  2.76 KB*@
+
+@model MyShop.Core.ViewModels.ProductManagerViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -7,10 +37,10 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "ProductManager", FormMethod.Post, new { encType = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Product</h4>
         <hr />
@@ -42,15 +72,14 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Product.Category, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model =>model.Product.Category, new SelectList(Model.ProductCategories,"Category","Category"), new { htmlAttributes = new { @class = "form-control" } })
-                </div>
+                @Html.DropDownListFor(model => model.Product.Category, new SelectList(Model.ProductCategories, "Category", "Category"), new { htmlAttributes = new { @class = "form-control" } })
+            </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Product.Image, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Product.Image, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Product.Image, "", new { @class = "text-danger" })
+                <input type="file" id="file" name="file" class="form-control" />
             </div>
         </div>
 
@@ -69,3 +98,15 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+@*© 2022 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About*@
